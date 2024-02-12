@@ -13,6 +13,7 @@ export async function getRank(req, res) {
         
         const response = await db.query(query);
 
+        
         const formattedResponse = response.rows.map(user => ({
             id: user.id,
             name: user.name,
@@ -20,7 +21,7 @@ export async function getRank(req, res) {
             visitCount: user.visitCount
         }));
         
-        // Preencha a resposta com usuários ausentes, se houver menos de 10 usuários
+        
         const missingUsersCount = 10 - formattedResponse.length;
         for (let i = 0; i < missingUsersCount; i++) {
             formattedResponse.push({
@@ -31,12 +32,15 @@ export async function getRank(req, res) {
             });
         }
         
+     
         return res.status(200).json(formattedResponse);
     } catch (err) {
+        
         console.error("Erro ao obter o ranking de usuários:", err);
         return res.status(500).send("Erro ao obter o ranking de usuários.");
     }
 }
+
 
 
 
