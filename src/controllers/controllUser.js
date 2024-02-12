@@ -14,11 +14,11 @@ export async function signIn(req, res) {
 
     try {
         if (!isValidEmail(email)) {
-            return res.status(401).send("Email inválido.");
+            return res.status(422).send("Email inválido.");
         }
 
         const login = await db.query(`SELECT * FROM users WHERE email=$1`, [email]);
-        if (!login.rowCount) return res.status(404).send("Usuário não encontrado.");
+        if (!login.rowCount) return res.status(401).send("Usuário não encontrado.");
 
         const user = login.rows[0];
 

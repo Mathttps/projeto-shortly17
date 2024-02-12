@@ -12,12 +12,22 @@ export async function getRank(req, res) {
         `;
         
         const response = await db.query(query);
-        return res.status(200).json(response.rows);
+        
+        //Teste
+        const formattedResponse = response.rows.map(user => ({
+            id: user.id,
+            name: user.name,
+            linksCount: user.linksCount,
+            visitCount: user.visitCount
+        }));
+        
+        return res.status(200).json(formattedResponse);
     } catch (err) {
         console.error("Erro ao obter o ranking de usuários:", err);
         return res.status(500).send("Erro ao obter o ranking de usuários.");
     }
 }
+
 
 
 // import { getRank } from "../repositories/reposRanking.js";
