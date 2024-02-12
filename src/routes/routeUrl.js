@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { authValid } from "../middlewares/authMiddle.js"
-import { deleteUrl, getUrlId, openShortUrl, getShortly } from "../controllers/controllLink.js"
+import { deleteUrl, getUrlId, openShortUrl, getShortly } from "../controllers/controllUrl.js"
 
 
 const urlRoutes = Router()

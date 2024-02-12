@@ -1,5 +1,5 @@
 import { Router } from "express";
-import urlRoutes from "./routeLink.js"
+import urlRoutes from "./routeUrl.js"
 import rankRouter from "./routeRank.js";
 import usersRoutes from "./userRoute.js";
 
