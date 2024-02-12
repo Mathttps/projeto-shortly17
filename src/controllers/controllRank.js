@@ -12,13 +12,14 @@ export async function getRank(req, res) {
         `;
         
         const response = await db.query(query);
-        
 
         const formattedResponse = response.rows.map(user => ({
             id: user.id,
             name: user.name,
-            linksCount: user.linksCount,
-            visitCount: user.visitCount
+            stats: {
+                linksCount: user.linksCount,
+                visitCount: user.visitCount
+            }
         }));
         
         const missingUsersCount = 10 - formattedResponse.length;
@@ -26,8 +27,10 @@ export async function getRank(req, res) {
             formattedResponse.push({
                 id: null,
                 name: null,
-                linksCount: 0,
-                visitCount: 0
+                stats: {
+                    linksCount: 0,
+                    visitCount: 0
+                }
             });
         }
         
