@@ -14,7 +14,7 @@ export async function signIn(req, res) {
 
     try {
         if (!isValidEmail(email)) {
-            return res.status(422).send("Email inválido.");
+            return res.status(401).send("Email inválido.");
         }
 
         const login = await db.query(`SELECT * FROM users WHERE email=$1`, [email]);
@@ -36,7 +36,7 @@ export async function signIn(req, res) {
         return res.status(200).send({ id: user.id, token });
     } catch (error) {
         console.error("Erro ao fazer login:", error);
-        res.status(500).send("Erro ao fazer login.");
+        res.status(422).send("Erro ao fazer login.");
     }
 }
 
