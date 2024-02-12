@@ -3,7 +3,7 @@ import { db } from "../database/database.js";
 export async function getRank(req, res) {
     try {
         const query = `
-            SELECT u.id, u.name, COUNT(su.id) AS linksCount, SUM(su."visitorsCount") AS visitCount
+            SELECT u.id, u.name, COUNT(su.id) AS linksCount, COALESCE(SUM(su."visitorsCount"), 0) AS visitCount
             FROM users u
             LEFT JOIN "shortedUrls" su ON u.id = su."userId"
             GROUP BY u.id, u.name
@@ -12,11 +12,13 @@ export async function getRank(req, res) {
         `;
         
         const response = await db.query(query);
-        return res.send(response.rows);
+        return res.status(200).json(response.rows);
     } catch (err) {
-        return res.status(500).send(err.message);
+        console.error("Erro ao obter o ranking de usuários:", err);
+        return res.status(500).send("Erro ao obter o ranking de usuários.");
     }
 }
+
 
 // import { getRank } from "../repositories/reposRanking.js";
 
