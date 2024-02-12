@@ -16,21 +16,18 @@ export async function getRank(req, res) {
         const formattedResponse = response.rows.map(user => ({
             id: user.id,
             name: user.name,
-            stats: {
-                linksCount: user.linksCount,
-                visitCount: user.visitCount
-            }
+            linksCount: user.linksCount,
+            visitCount: user.visitCount
         }));
         
+        // Preencha a resposta com usuários ausentes, se houver menos de 10 usuários
         const missingUsersCount = 10 - formattedResponse.length;
         for (let i = 0; i < missingUsersCount; i++) {
             formattedResponse.push({
                 id: null,
                 name: null,
-                stats: {
-                    linksCount: 0,
-                    visitCount: 0
-                }
+                linksCount: 0,
+                visitCount: 0
             });
         }
         
