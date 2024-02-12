@@ -3,11 +3,11 @@ import { authValid } from "../middlewares/authMiddle.js"
 import { deleteUrl, getUrlId, openShortUrl, getShortly } from "../controllers/controllLink.js"
 
 
-const linksRoutes = Router()
+const urlRoutes = Router()
 
-linksRoutes.get("/urls/:id", getUrlId)
-linksRoutes.get("/urls/open/:shortUrl", openShortUrl)
-linksRoutes.delete("/urls/:id", authValid, deleteUrl)
-linksRoutes.post("/urls/getShortly", authValid, getShortly)
+urlRoutes.get("/urls/:id", getUrlId)
+urlRoutes.get("/urls/open/:shortUrl", openShortUrl)
+urlRoutes.delete("/urls/:id", authValid, deleteUrl)
+urlRoutes.post("/urls/shorten", authValid, getShortly)
 
-export default linksRoutes
+export default urlRoutes
